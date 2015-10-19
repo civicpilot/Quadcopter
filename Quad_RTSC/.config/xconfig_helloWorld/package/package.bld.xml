@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!--  This file conforms to the DTD xdc/bld/build.dtd -->
+<package name="xconfig_helloWorld" version="" producerId="undefined">
+    <units>
+    </units>
+    <sources>
+        <srcFile name="package/cfg/helloWorld_p28FP.c"/>
+    </sources>
+    <configscripts>
+        <srcFile name="C:/Users/Chris/workspace_v6_0/Quad RTSC/helloWorld.cfg"/>
+    </configscripts>
+    <makefiles>
+        <srcFile name="package.mak" src="package.bld"/>
+        <srcFile name="package/package.xdc.dep" src="package.xdc"/>
+        <srcFile name="package/cfg/helloWorld_p28FP.mak" src="package.bld"/>
+        <srcFile name="package/cfg/helloWorld_p28FP.o28FP.dep" src="package/cfg/helloWorld_p28FP.c"/>
+        <srcFile name="package/cfg/helloWorld_p28FP.dep" src="package/cfg/helloWorld_p28FP.cfg"/>
+        <srcFile name="package/cfg/helloWorld.x28FP.mak" src="package.bld"/>
+        <srcFile name="package/rel/xconfig_helloWorld.tar.dep" src="package/rel/xconfig_helloWorld.xdc.inc"/>
+    </makefiles>
+    <targets>
+        <target name="ti.targets.C28_float"
+            version="ti.targets.C28_float{1,0,6.2,11"
+            rawVersion="6.2.11"
+            platform="ti.platforms.sim28xx"
+            isa="28FP"
+            suffix="28FP"
+            rootDir="c:/ti/ccsv6/tools/compiler/c2000_6.2.11"
+            os="undefined"
+            rts="ti.targets.rts2800">
+            <model endian="little"
+                codeModel="undefined"
+                dataModel="large"/>
+        </target>
+    </targets>
+    <libraries>
+    </libraries>
+    <configurations>
+    <configuration name="helloWorld"
+        pname="helloWorld.p28FP"
+        target="ti.targets.C28_float"
+        platform="ti.platforms.tms320x28:TMS320F28069"
+        profile="release"
+        isPartial="false"
+        xCfgScript="package/cfg/helloWorld_p28FP.cfg"
+        xCfgPrefix="package/cfg/helloWorld_p28FP"
+        cfgScript="C:/Users/Chris/workspace_v6_0/Quad RTSC/helloWorld.cfg"
+        cfgArgs="null"
+        />
+    </configurations>
+    <executables>
+    <executable name="helloWorld"
+        pname="helloWorld.x28FP"
+        target="ti.targets.C28_float"
+        platform="ti.platforms.tms320x28:TMS320F28069"
+        profile="release"
+        xCfgScript="package/cfg/helloWorld_p28FP.cfg"
+        xCfgPrefix="package/cfg/helloWorld_p28FP"
+        cfgScript="C:/Users/Chris/workspace_v6_0/Quad RTSC/helloWorld.cfg"
+        cfgArgs="null"
+        />
+    </executables>
+    <tests>
+    <test exeName="helloWorld.x28FP"
+        args=""
+        groupName="helloWorld.x28FP"
+        refOutput="undefined"
+        refExitCode="0"
+        execArgs=""
+        />
+    </tests>
+    <releases relDir="package/rel/">
+    <release name="xconfig_helloWorld"
+        pname="xconfig_helloWorld.tar"
+        label="default"
+    >
+        <file name="package/package.bld.xml"/>
+        <file name="package/build.cfg"/>
+        <file name="package/package.xdc.inc"/>
+    </release>
+    </releases>
+    <repositories>
+    </repositories>
+</package>
