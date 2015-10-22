@@ -9,10 +9,10 @@
  */
 
 
--l"C:\Users\Chris\workspace_v6_0\Quad_RTSC\Debug\configPkg\package\cfg\Quad_p28FP.o28FP"
+-l"C:\Users\Chris\git\Quadcopter\Quad_RTSC\Debug\configPkg\package\cfg\Quad_p28FP.o28FP"
 -l"C:\ti\tirtos_c2000_2_10_01_38\products\uia_2_00_02_39\packages\ti\uia\sysbios\lib\release\ti.uia.sysbios.a28FP"
 -l"C:\ti\tirtos_c2000_2_10_01_38\products\uia_2_00_02_39\packages\ti\uia\loggers\lib\release\ti.uia.loggers.a28FP"
--l"C:\Users\Chris\workspace_v6_0\Quad_RTSC\src\sysbios\sysbios.a28FP"
+-l"C:\Users\Chris\git\Quadcopter\Quad_RTSC\src\sysbios\sysbios.a28FP"
 -l"C:\ti\tirtos_c2000_2_10_01_38\products\bios_6_41_00_26\packages\ti\catalog\c2800\init\lib\Boot.a28FP"
 -l"C:\ti\tirtos_c2000_2_10_01_38\products\uia_2_00_02_39\packages\ti\uia\runtime\lib\release\ti.uia.runtime.a28FP"
 -l"C:\ti\tirtos_c2000_2_10_01_38\products\uia_2_00_02_39\packages\ti\uia\events\lib\release\ti.uia.events.a28FP"

@@ -10,8 +10,8 @@
 #include <ti/sysbios/knl/Task.h>
 extern const ti_sysbios_knl_Task_Handle task0;
 
-#include <ti/sysbios/family/c28/Hwi.h>
-extern const ti_sysbios_family_c28_Hwi_Handle ti_sysbios_family_c28_Hwi0;
+#include <ti/sysbios/knl/Clock.h>
+extern const ti_sysbios_knl_Clock_Handle clock0;
 
 extern int xdc_runtime_Startup__EXECFXN__C;
 

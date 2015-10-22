@@ -23,27 +23,31 @@ I2C_Device::~I2C_Device(void)
 
 void I2C_Device::I2CA_Init(void)
 {
-	EALLOW;
+	// Perform this Init operation once for ALL I2C devices
+	if (SysCtrlRegs.PCLKCR0.bit.I2CAENCLK == 0)
+	{
+		EALLOW;
+		SysCtrlRegs.PCLKCR0.bit.I2CAENCLK = 1;     // I2C-A
 
-	GpioCtrlRegs.GPAPUD.bit.GPIO28 = 0;    // Enable pull-up for GPIO28 (SDAA)
-	GpioCtrlRegs.GPAPUD.bit.GPIO29 = 0;    // Enable pull-up for GPIO29 (SCLA)
+		GpioCtrlRegs.GPAPUD.bit.GPIO28 = 0;    // Enable pull-up for GPIO28 (SDAA)
+		GpioCtrlRegs.GPAPUD.bit.GPIO29 = 0;    // Enable pull-up for GPIO29 (SCLA)
 
-	GpioCtrlRegs.GPAQSEL2.bit.GPIO28 = 3;  // Asynch input GPIO28 (SDAA)
-	GpioCtrlRegs.GPAQSEL2.bit.GPIO29 = 3;  // Asynch input GPIO29 (SCLA)
+		GpioCtrlRegs.GPAQSEL2.bit.GPIO28 = 3;  // Asynch input GPIO28 (SDAA)
+		GpioCtrlRegs.GPAQSEL2.bit.GPIO29 = 3;  // Asynch input GPIO29 (SCLA)
 
-	GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 2;   // Configure GPIO28 for SDAA operation
-	GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 2;   // Configure GPIO29 for SCLA operation
+		GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 2;   // Configure GPIO28 for SDAA operation
+		GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 2;   // Configure GPIO29 for SCLA operation
+		EDIS;
 
-	EDIS;
-
-   I2caRegs.I2CSAR = 0x00;     		  // Slave address - EEPROM control code
-   I2caRegs.I2CPSC.all = 6;           // Prescaler - 1 Mhz on module clk from 90MHz CPU
-   I2caRegs.I2CCLKL = 10;             // 1MHz /4 = 250kHz
-   I2caRegs.I2CCLKH = 5;              // 1MHz /3 = 333.3kHz
-   I2caRegs.I2CIER.all = 0x3E;        // Enable SCD,XRDY,RRDY,ARDY,NACK interrupts
-   I2caRegs.I2CMDR.bit.IRS = 1;       // Take I2C out of reset, Stop I2C when suspended
-   I2caRegs.I2CFFTX.all = 0x0000;     // Disable FIFO mode and TXFIFO
-   I2caRegs.I2CFFRX.all = 0x0000;     // Disable RXFIFO, clear RXFFINT
+	   I2caRegs.I2CSAR = 0x00;     		  // Slave address - EEPROM control code
+	   I2caRegs.I2CPSC.all = 6;           // Prescaler - 1 Mhz on module clk from 90MHz CPU
+	   I2caRegs.I2CCLKL = 10;             // 1MHz /4 = 250kHz
+	   I2caRegs.I2CCLKH = 5;              // 1MHz /3 = 333.3kHz
+	   I2caRegs.I2CIER.all = 0x3E;        // Enable SCD,XRDY,RRDY,ARDY,NACK interrupts
+	   I2caRegs.I2CMDR.bit.IRS = 1;       // Take I2C out of reset, Stop I2C when suspended
+	   I2caRegs.I2CFFTX.all = 0x0000;     // Disable FIFO mode and TXFIFO
+	   I2caRegs.I2CFFRX.all = 0x0000;     // Disable RXFIFO, clear RXFFINT
+	}
 }
 
 void I2C_Device::writeBytes(unsigned int regAddr, unsigned int numBytes, unsigned int *msg)

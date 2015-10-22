@@ -21,29 +21,29 @@ LED_Driver* ledDriver;
 void Initialize(void);
 extern "C"
 {
-	Void parseInputData(UArg arg);
-	Void getSensorData(UArg arg);
+	void parseInputData(UArg arg);
+	void getSensorData(UArg arg);
+	void taskFxn(UArg a0, UArg a1);
 }
 
 /*
  *  ======== taskFxn ========
  */
-extern "C"
+void taskFxn(UArg a0, UArg a1)
 {
-Void taskFxn(UArg a0, UArg a1)
-{
-    System_printf("enter taskFxn()\n");
 
-	Task_sleep(10);
-	ledDriver->flashLED();
+	System_printf("enter taskFxn()\n");
+	for(;;)
+	{
+		Task_sleep(10);
+	}
 
-    System_printf("exit taskFxn()\n");
-}
+//    System_printf("exit taskFxn()\n");
 }
 
 Int main(void)
 {
-	Initialize();
+//	Initialize();
 	System_printf("System Initialized\n");
 //	hud_Interface = new HUD_Interface();
 	sensor_Drvr = new Sensor_Drvr();
@@ -65,25 +65,24 @@ void Initialize(void)
 
 	// Step 1. Initialize System Control:
 	// PLL, WatchDog, enable Peripheral Clocks
-	InitSysCtrl();
+//	InitSysCtrl(); //RTOS
 
 	//Initialize the PWMS
-	InitEPwm3Gpio();
-	InitEPwm4Gpio();
-	InitEPwm7Gpio();
-	InitEPwm8Gpio();
+//	InitEPwm3Gpio(); // RTOS
+//	InitEPwm4Gpio(); // RTOS
+//	InitEPwm7Gpio(); // RTOS
+//	InitEPwm8Gpio(); // RTOS
 
-	InitSpibGpio();
+//	InitSpibGpio(); // RTOS
 
-	// Interferring with RTOS
-//	InitAdc();
+//	InitAdc(); // RTOS
 
 	//RTOS Should handle this
-	InitCpuTimers();
+//	InitCpuTimers(); // RTOS
 
 	// Step 3. Clear all interrupts and initialize PIE vector table:
 	// Disable CPU interrupts
-	DINT; //REMOVED FOR RTOS
+	DINT;
 
 	// Initialize PIE control registers to their default state.
 	// The default state is all PIE interrupts disabled and flags
@@ -108,27 +107,26 @@ void Initialize(void)
 //	GPIO_Setup_LED();			// Initialize GPIO for LED functionality
 //	I2CA_Init();				// Initialize all the I2C Device Peripherals
 
-	CpuTimer0Regs.TCR.bit.FREE = 1;	// Enable free count mode on the timer
+//	CpuTimer0Regs.TCR.bit.FREE = 1;	// Enable free count mode on the timer // RTOS
 
 //	Sensor_Setup();				// Setup the sensors
 //	Sensor_testConnect();		// Check sensor communication on I2C
 
 
-	// Configure ADC
-		EALLOW;
-	    AdcRegs.ADCCTL2.bit.ADCNONOVERLAP = 1;	// Enable non-overlap mode
-		AdcRegs.ADCCTL1.bit.INTPULSEPOS	= 1;	// ADCINT1 trips after AdcResults latch
-		AdcRegs.INTSEL1N2.bit.INT1E     = 1;	// Enabled ADCINT1
-		AdcRegs.INTSEL1N2.bit.INT1CONT  = 0;	// Disable ADCINT1 Continuous mode
-	    AdcRegs.INTSEL1N2.bit.INT1SEL 	= 1;    // setup EOC1 to trigger ADCINT1 to fire
-	    AdcRegs.ADCSOC0CTL.bit.CHSEL 	= 4;    // set SOC0 channel select to ADCINA4
-	    AdcRegs.ADCSOC1CTL.bit.CHSEL 	= 2;    // set SOC1 channel select to ADCINA2
-	    AdcRegs.ADCSOC0CTL.bit.TRIGSEL 	= 5;    // set SOC0 start trigger on EPWM1A, due to round-robin SOC0 converts first then SOC1
-	    AdcRegs.ADCSOC1CTL.bit.TRIGSEL 	= 5;    // set SOC1 start trigger on EPWM1A, due to round-robin SOC0 converts first then SOC1
-		AdcRegs.ADCSOC0CTL.bit.ACQPS 	= 6;	// set SOC0 S/H Window to 7 ADC Clock Cycles, (6 ACQPS plus 1)
-		AdcRegs.ADCSOC1CTL.bit.ACQPS 	= 6;	// set SOC1 S/H Window to 7 ADC Clock Cycles, (6 ACQPS plus 1)
-		EDIS;
-
+	// Configure ADC // RTOS
+//		EALLOW;
+//	    AdcRegs.ADCCTL2.bit.ADCNONOVERLAP = 1;	// Enable non-overlap mode
+//		AdcRegs.ADCCTL1.bit.INTPULSEPOS	= 1;	// ADCINT1 trips after AdcResults latch
+//		AdcRegs.INTSEL1N2.bit.INT1E     = 1;	// Enabled ADCINT1
+//		AdcRegs.INTSEL1N2.bit.INT1CONT  = 0;	// Disable ADCINT1 Continuous mode
+//	    AdcRegs.INTSEL1N2.bit.INT1SEL 	= 1;    // setup EOC1 to trigger ADCINT1 to fire
+//	    AdcRegs.ADCSOC0CTL.bit.CHSEL 	= 4;    // set SOC0 channel select to ADCINA4
+//	    AdcRegs.ADCSOC1CTL.bit.CHSEL 	= 2;    // set SOC1 channel select to ADCINA2
+//	    AdcRegs.ADCSOC0CTL.bit.TRIGSEL 	= 5;    // set SOC0 start trigger on EPWM1A, due to round-robin SOC0 converts first then SOC1
+//	    AdcRegs.ADCSOC1CTL.bit.TRIGSEL 	= 5;    // set SOC1 start trigger on EPWM1A, due to round-robin SOC0 converts first then SOC1
+//		AdcRegs.ADCSOC0CTL.bit.ACQPS 	= 6;	// set SOC0 S/H Window to 7 ADC Clock Cycles, (6 ACQPS plus 1)
+//		AdcRegs.ADCSOC1CTL.bit.ACQPS 	= 6;	// set SOC1 S/H Window to 7 ADC Clock Cycles, (6 ACQPS plus 1)
+//		EDIS;
 
 } // end Initialize
 
@@ -138,8 +136,9 @@ void Initialize(void)
 //	hud_interface->parseInputData(motionCommands);
 //}
 
-Void getSensorData(UArg arg)
+void getSensorData(UArg arg)
 {
-//	Sensor_Drvr *sensor_drvr = (Sensor_Drvr *) arg;
+	sensor_data = sensor_Drvr->GetSensorData();
 	ledDriver->flashLED();
+	return;
 }

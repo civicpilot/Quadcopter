@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/Quad_p28FP.c"/>
     </sources>
     <configscripts>
-        <srcFile name="C:/Users/Chris/workspace_v6_0/Quad_RTSC/Quad.cfg"/>
+        <srcFile name="C:/Users/Chris/git/Quadcopter/Quad_RTSC/Quad.cfg"/>
     </configscripts>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -44,7 +44,7 @@
         isPartial="false"
         xCfgScript="package/cfg/Quad_p28FP.cfg"
         xCfgPrefix="package/cfg/Quad_p28FP"
-        cfgScript="C:/Users/Chris/workspace_v6_0/Quad_RTSC/Quad.cfg"
+        cfgScript="C:/Users/Chris/git/Quadcopter/Quad_RTSC/Quad.cfg"
         cfgArgs="null"
         />
     </configurations>
@@ -56,7 +56,7 @@
         profile="debug"
         xCfgScript="package/cfg/Quad_p28FP.cfg"
         xCfgPrefix="package/cfg/Quad_p28FP"
-        cfgScript="C:/Users/Chris/workspace_v6_0/Quad_RTSC/Quad.cfg"
+        cfgScript="C:/Users/Chris/git/Quadcopter/Quad_RTSC/Quad.cfg"
         cfgArgs="null"
         />
     </executables>

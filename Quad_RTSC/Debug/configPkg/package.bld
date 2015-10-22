@@ -11,7 +11,7 @@ var makeAssembly = false;
 var Executable = xdc.module('xdc.bld.Executable');
 
 var exeOpts = new Executable.Attrs({
-        cfgScript: 'C:/Users/Chris/workspace_v6_0/Quad_RTSC/Quad.cfg',
+        cfgScript: 'C:/Users/Chris/git/Quadcopter/Quad_RTSC/Quad.cfg',
         profile: 'debug',
         cfgHome: 'configPkg',
 });
@@ -41,7 +41,7 @@ else {
 
 var thisObj = {
     cfg:        '../Quad.cfg',
-    outputPath: 'C:/Users/Chris/workspace_v6_0/Quad_RTSC/Debug/configPkg',
+    outputPath: 'C:/Users/Chris/git/Quadcopter/Quad_RTSC/Debug/configPkg',
     exeName:    'Quad' + suffix,
     exeIntName: 'Quad' + suffix.replace('.', '_'),
     targ:       targ,

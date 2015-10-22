@@ -7,5 +7,5 @@
 #       or equal to the generated config header
 #
 linker.cmd: package/cfg/Quad_p28FP.xdl
-	$(SED) 's"^\"\(package/cfg/Quad_p28FPcfg.cmd\)\"$""\"C:/Users/Chris/workspace_v6_0/Quad_RTSC/Debug/configPkg/\1\""' package/cfg/Quad_p28FP.xdl > $@
+	$(SED) 's"^\"\(package/cfg/Quad_p28FPcfg.cmd\)\"$""\"C:/Users/Chris/git/Quadcopter/Quad_RTSC/Debug/configPkg/\1\""' package/cfg/Quad_p28FP.xdl > $@
 	-$(SETDATE) -r:max package/cfg/Quad_p28FP.h compiler.opt compiler.opt.defs

@@ -5,7 +5,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROGRAM.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx" value="${build_artifact:Quad_RTSC}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx" value="Quad_RTSC"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:Quad_RTSC}"/>
-<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx" value="C:/Users\Chris\workspace_v6_0\Quad_RTSC\Debug\Quad_RTSC.out"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.Texas Instruments XDS100v2 USB Debug Probe_0/C28xx" value="C:/Users\Chris\git\Quadcopter\Quad_RTSC\Debug\Quad_RTSC.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/Quad_RTSC"/>
 </listAttribute>
