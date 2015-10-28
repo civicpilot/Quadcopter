@@ -101,8 +101,10 @@ typedef struct{
 	float time;
 	float rateKp[4];
 	float rateKi[4];
+//	float rateKd[4];
 	float attitudeKp[4];
 	float attitudeKi[4];
+//	float attitudeKd[4];
 	double roll;
 	double pitch;
 	double yaw;

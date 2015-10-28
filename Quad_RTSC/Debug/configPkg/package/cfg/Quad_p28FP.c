@@ -7000,7 +7000,7 @@ ti_sysbios_knl_Clock_Object__ ti_sysbios_knl_Clock_Object__table__V[1] = {
         },  /* elem */
         (xdc_UInt32)0x1,  /* timeout */
         (xdc_UInt32)0x1,  /* currTimeout */
-        (xdc_UInt32)0xa,  /* period */
+        (xdc_UInt32)0x1,  /* period */
         1,  /* active */
         ((xdc_Void(*)(xdc_UArg))((xdc_Fxn)getSensorData)),  /* fxn */
         ((xdc_UArg)((void*)&sensor_Drvr)),  /* arg */

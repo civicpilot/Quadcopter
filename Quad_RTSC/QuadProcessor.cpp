@@ -13,11 +13,26 @@
 
 Quad_Processor::Quad_Processor() {
 	// TODO Auto-generated constructor stub
+	for (int i = 0; i < sizeof(m_pidCommands); i++)
+		m_pidCommands[i] = 0;
+
+	m_cmdTransform = new Command_Transform();
 }
 
 Quad_Processor::~Quad_Processor() {
 	// TODO Auto-generated destructor stub
 }
+
+void Quad_Processor::Process_Data(Datagram data) {
+	// MotionCmds will be coming from user input.
+	float motionCmds[4] = {0, 0, 0, 0};
+	m_dataGram = data;
+	CompFilter();
+	CollectData(motionCmds);
+	m_cmdTransform->CommandMixer(motionCmds, m_pidCommands, 0);
+	return;
+}
+
 // Should be called from a TSK
 float Quad_Processor::PID2(float desired, float current_pos, float* last_pos, float* error_sum, int type)
 {
@@ -112,9 +127,9 @@ void Quad_Processor::CompFilter(void)
 	m_dataGram.yaw = (ALPHA)*(m_dataGram.yaw + m_dataGram.sensorData.Gz*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Az);
 }
 // Should be called from a TSK
-void Quad_Processor::CollectData(float *motionCmds, float *correctCmds)
+void Quad_Processor::CollectData(float *motionCmds)
 {
-	float attitudeCmds[4];
+	float attitudeCmds[4] = {0, 0, 0, 0};
 
 	// Outer PI Loop (Attitude)
 	// Roll
@@ -128,19 +143,19 @@ void Quad_Processor::CollectData(float *motionCmds, float *correctCmds)
 
 	// Inner PI loop (Rate)
 	// Roll
-	correctCmds[0] = RatePI(attitudeCmds[1], m_dataGram.sensorData.Gx, &m_sensorErrs.old_pos_Gx, &m_sensorErrs.sum_error_Gx,0);
+	m_pidCommands[0] = RatePI(attitudeCmds[1], m_dataGram.sensorData.Gx, &m_sensorErrs.old_pos_Gx, &m_sensorErrs.sum_error_Gx,0);
 	// Pitch
-	correctCmds[1] = RatePI(attitudeCmds[2], m_dataGram.sensorData.Gy, &m_sensorErrs.old_pos_Gy, &m_sensorErrs.sum_error_Gy,1);
+	m_pidCommands[1] = RatePI(attitudeCmds[2], m_dataGram.sensorData.Gy, &m_sensorErrs.old_pos_Gy, &m_sensorErrs.sum_error_Gy,1);
 	// Yaw
-	correctCmds[2] = RatePI(attitudeCmds[3], m_dataGram.sensorData.Gz, &m_sensorErrs.old_pos_Gz, &m_sensorErrs.sum_error_Gz,2);
+	m_pidCommands[2] = RatePI(attitudeCmds[3], m_dataGram.sensorData.Gz, &m_sensorErrs.old_pos_Gz, &m_sensorErrs.sum_error_Gz,2);
 	// Thrust
-	correctCmds[3] = RatePI(attitudeCmds[0], m_dataGram.sensorData.A, &m_sensorErrs.old_pos_altitude, &m_sensorErrs.sum_error_altitude,3);
+	m_pidCommands[3] = RatePI(attitudeCmds[0], m_dataGram.sensorData.A, &m_sensorErrs.old_pos_altitude, &m_sensorErrs.sum_error_altitude,3);
 
 	// Limit Range of motion
-	if (fabs(m_dataGram.roll) > 0.60 || fabs(m_dataGram.pitch) > 0.60) {
-		correctCmds[0] = 0;
-		correctCmds[1] = 0;
-		correctCmds[2] = 0;
-		correctCmds[3] = 0;
-	}
+//	if (fabs(m_dataGram.roll) > 0.60 || fabs(m_dataGram.pitch) > 0.60) {
+//		m_pidCommands[0] = 0;
+//		m_pidCommands[1] = 0;
+//		m_pidCommands[2] = 0;
+//		m_pidCommands[3] = 0;
+//	}
 }

@@ -1481,7 +1481,7 @@ __o = __obj[2]  // ti.catalog.c2800.init.Boot
     __o['Object__heap'] = null
     __o['Object__sizeof'] = 0
     __o['Object__table'] = null
-    __o['bootFromFlash'] = false
+    __o['bootFromFlash'] = true
     __o['common$'] = __obj[4.0]
     __o['concertoDevice'] = false
     __o['configNameMap$'] = __obj[5.0]
@@ -17469,7 +17469,7 @@ __o = __obj[920]  // ti.sysbios.knl.Clock.Instance#0
     __o['$name'] = String(java.net.URLDecoder.decode('ti.sysbios.knl.Clock.Instance%230', 'UTF-8'))
     __o['arg'] = String(java.net.URLDecoder.decode('%26sensor_Drvr', 'UTF-8'))
     __o['instance'] = __obj[921.0]
-    __o['period'] = 10
+    __o['period'] = 1
     __o['startFlag'] = true
 
 __o = __obj[921]  // ti.sysbios.knl.Clock.Instance#0/instance

@@ -284,11 +284,11 @@ void Sensor_Drvr::zeroDatagram(void){
 //		dataGram.Ki[i] = 0;
 //		dataGram.Kd[i] = 0;
 
-		dataGram.rateKp[i] = 0;
-		dataGram.rateKi[i] = 0;
+		dataGram.rateKp[i] = 0.05;
+		dataGram.rateKi[i] = 0.10;
 
-		dataGram.attitudeKp[i] = 0;
-		dataGram.attitudeKi[i] = 0;
+		dataGram.attitudeKp[i] = 0.05;
+		dataGram.attitudeKi[i] = 0.10;
 	}
 
 	// Roll

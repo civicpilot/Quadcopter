@@ -96,6 +96,7 @@
 /* Content from xdc.cfg (null): */
 
 /* Content from ti.catalog.c2800.init (ti/catalog/c2800/init/linkcmd.xdt): */
+-u _ti_catalog_c2800_init_Boot_entry
 
 /* Content from ti.platforms.tms320x28 (null): */
 
@@ -137,6 +138,7 @@ _TSK_idle = _ti_sysbios_knl_Task_Object__table__V + 34;
 
 SECTIONS
 {
+    .ti_catalog_c2800_init_begin: load > BEGIN
 
 
     xdc.meta: type = COPY

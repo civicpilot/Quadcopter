@@ -148,6 +148,9 @@ QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h
 QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h
 QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h
 QuadProcessor.obj: ../QuadProcessor.hpp
+QuadProcessor.obj: ../Command_Transform.hpp
+QuadProcessor.obj: ../PWM_Driver.hpp
+QuadProcessor.obj: ../LED_Driver.hpp
 
 ../QuadProcessor.cpp: 
 ../header.h: 
@@ -297,3 +300,6 @@ c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h:
 c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h: 
 c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h: 
 ../QuadProcessor.hpp: 
+../Command_Transform.hpp: 
+../PWM_Driver.hpp: 
+../LED_Driver.hpp: 

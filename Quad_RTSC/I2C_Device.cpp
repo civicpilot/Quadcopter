@@ -29,6 +29,8 @@ void I2C_Device::I2CA_Init(void)
 		EALLOW;
 		SysCtrlRegs.PCLKCR0.bit.I2CAENCLK = 1;     // I2C-A
 
+		GpioCtrlRegs.GPBPUD.bit.GPIO34 = 0; // Hopefully enable flash boot.
+
 		GpioCtrlRegs.GPAPUD.bit.GPIO28 = 0;    // Enable pull-up for GPIO28 (SDAA)
 		GpioCtrlRegs.GPAPUD.bit.GPIO29 = 0;    // Enable pull-up for GPIO29 (SCLA)
 

@@ -18,15 +18,54 @@ PWM_Driver::PWM_Driver() {
 	PWM_setup();
 }
 
+PWM_Driver::~PWM_Driver() {
+
+	// Shutdown PWMs for the ESCs
+	EALLOW;
+
+    SysCtrlRegs.PCLKCR1.bit.EPWM3ENCLK = 1;    // ePWM3
+    SysCtrlRegs.PCLKCR1.bit.EPWM4ENCLK = 1;    // ePWM4
+    SysCtrlRegs.PCLKCR1.bit.EPWM7ENCLK = 1;    // ePWM7
+    SysCtrlRegs.PCLKCR1.bit.EPWM8ENCLK = 1;    // ePWM8
+
+	// Set actions
+	EPwm3Regs.AQCTLA.bit.ZRO = AQ_SET; // Set PWM1A on Zero
+	EPwm3Regs.AQCTLA.bit.CAU = AQ_CLEAR; // Clear PWM1A on event A, up count
+	EPwm4Regs.AQCTLA.bit.ZRO = AQ_SET; // Set PWM1A on Zero
+	EPwm4Regs.AQCTLA.bit.CAU = AQ_CLEAR; // Clear PWM1A on event A, up count
+	EPwm7Regs.AQCTLA.bit.ZRO = AQ_SET; // Set PWM1A on Zero
+	EPwm7Regs.AQCTLA.bit.CAU = AQ_CLEAR; // Clear PWM1A on event A, up count
+	EPwm8Regs.AQCTLA.bit.ZRO = AQ_SET; // Set PWM1A on Zero
+	EPwm8Regs.AQCTLA.bit.CAU = AQ_CLEAR; // Clear PWM1A on event A, up count
+
+    EDIS;
+}
+
 void PWM_Driver::PWM_setup(void)
 {
 
 	// Delay so that Motors can be initialized
-	DELAY_US(MOTOR_START_UP);
+//	DELAY_US(MOTOR_START_UP);
+	for (int a = 0; a < 10000; a++);
 
 	// Setup PWMs for the ESCs
 	EALLOW;
-	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 0;
+
+    SysCtrlRegs.PCLKCR1.bit.EPWM3ENCLK = 1;    // ePWM3
+    SysCtrlRegs.PCLKCR1.bit.EPWM4ENCLK = 1;    // ePWM4
+    SysCtrlRegs.PCLKCR1.bit.EPWM7ENCLK = 1;    // ePWM7
+    SysCtrlRegs.PCLKCR1.bit.EPWM8ENCLK = 1;    // ePWM8
+
+    SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 0;     // Enable TBCLK within the ePWM
+
+	GpioCtrlRegs.GPAPUD.bit.GPIO4 = 1;    // Disable pull-up on GPIO4 (EPWM3A)
+	GpioCtrlRegs.GPAMUX1.bit.GPIO4 = 1;   // Configure GPIO4 as EPWM3A
+	GpioCtrlRegs.GPAPUD.bit.GPIO6 = 1;    // Disable pull-up on GPIO6 (EPWM4A)
+	GpioCtrlRegs.GPAMUX1.bit.GPIO6 = 1;   // Configure GPIO6 as EPWM4A
+	GpioCtrlRegs.GPAPUD.bit.GPIO30 = 1;	   // Disable pull-up on GPIO30 (EPWM7A)
+	GpioCtrlRegs.GPAMUX2.bit.GPIO30 = 3;   // Configure GPIO30 as EPWM7A
+	GpioCtrlRegs.GPAPUD.bit.GPIO31 = 1;	   // Disable pull-up on GPIO30 (EPWM8A)
+	GpioCtrlRegs.GPAMUX2.bit.GPIO31 = 3;   // Configure GPIO30 as EPWM8A
 
 	// Setup TBCLK
 	EPwm3Regs.TBCTL.bit.CTRMODE = TB_COUNT_UP; // Count up
