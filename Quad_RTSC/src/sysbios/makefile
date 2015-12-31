@@ -18,9 +18,9 @@ TARGET_INC = -I"C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/
 
 INCS = $(BIOS_INC) $(TARGET_INC)  
 
-CC = c:/ti/ccsv6/tools/compiler/c2000_6.2.11/bin/cl2000 -c $(CCOPTS) -I c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include
-ASM = c:/ti/ccsv6/tools/compiler/c2000_6.2.11/bin/cl2000 -c $(CCOPTS) -I c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include
-AR = c:/ti/ccsv6/tools/compiler/c2000_6.2.11/bin/ar2000 rq
+CC = C:/ti/ccsv6/tools/compiler/c2000_6.2.11/bin/cl2000 -c $(CCOPTS) -I C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include
+ASM = C:/ti/ccsv6/tools/compiler/c2000_6.2.11/bin/cl2000 -c $(CCOPTS) -I C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include
+AR = C:/ti/ccsv6/tools/compiler/c2000_6.2.11/bin/ar2000 rq
 
 DEL = cmd.exe /q /c del /f
 CP = cmd.exe /q /c copy /Y

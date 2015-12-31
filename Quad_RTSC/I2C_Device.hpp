@@ -11,16 +11,16 @@
 class I2C_Device
 {
 public:
-	I2C_Device(unsigned int devAddress);
+	I2C_Device(Uint8 devAddress);
 	~I2C_Device();
 
 	void I2CA_Init (void);
-	void readByte (unsigned int regAddr);
-	void readBytes (unsigned int regAddr, unsigned int numBytes);
-	void writeByte (unsigned int regAddr, unsigned int msg);
-	void writeBytes (unsigned int regAddr, unsigned int numBytes, unsigned int *msg);
+	void readByte (Uint8 regAddr);
+	void readBytes (Uint8 regAddr, Uint8 numBytes);
+	void writeByte (Uint8 regAddr, Uint8 msg);
+	void writeBytes (Uint8 regAddr, Uint8 numBytes, Uint8 *msg);
 
-	unsigned short m_I2C_buffer[14];
+	Uint8 m_I2C_buffer[14];
 
 private:
 	unsigned long m_I2C_timeout;

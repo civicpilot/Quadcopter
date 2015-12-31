@@ -25,7 +25,7 @@
             platform="ti.platforms.sim28xx"
             isa="28FP"
             suffix="28FP"
-            rootDir="c:/ti/ccsv6/tools/compiler/c2000_6.2.11"
+            rootDir="C:/ti/ccsv6/tools/compiler/c2000_6.2.11"
             os="undefined"
             rts="ti.targets.rts2800">
             <model endian="little"

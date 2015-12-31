@@ -33,6 +33,7 @@ private:
 
 public:
 	Datagram m_dataGram;
+	Datagram m_lastDataGram;
 };
 
 #endif /* QUADPROCESSOR_HPP_ */

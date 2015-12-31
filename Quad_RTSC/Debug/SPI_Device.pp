@@ -3,12 +3,12 @@
 SPI_Device.obj: ../SPI_Device.cpp
 SPI_Device.obj: ../header.h
 SPI_Device.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/std.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h
 SPI_Device.obj: C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/std.h
 SPI_Device.obj: C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/C28_float.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h
 SPI_Device.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Log.h
 SPI_Device.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/xdc.h
 SPI_Device.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Types.h
@@ -140,24 +140,24 @@ SPI_Device.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/incl
 SPI_Device.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Dma_defines.h
 SPI_Device.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Cla_defines.h
 SPI_Device.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_DefaultISR.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h
-SPI_Device.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h
+SPI_Device.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h
 SPI_Device.obj: ../SPI_Device.hpp
 
 ../SPI_Device.cpp: 
 ../header.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/std.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h: 
 C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/std.h: 
 C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/C28_float.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Log.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/xdc.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Types.h: 
@@ -289,11 +289,11 @@ C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_I2c_d
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Dma_defines.h: 
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Cla_defines.h: 
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_DefaultISR.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h: 
 ../SPI_Device.hpp: 

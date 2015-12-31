@@ -3,12 +3,12 @@
 HUD_Interface.obj: ../HUD_Interface.cpp
 HUD_Interface.obj: ../header.h
 HUD_Interface.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/std.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h
 HUD_Interface.obj: C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/std.h
 HUD_Interface.obj: C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/C28_float.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h
 HUD_Interface.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Log.h
 HUD_Interface.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/xdc.h
 HUD_Interface.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Types.h
@@ -140,13 +140,13 @@ HUD_Interface.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/i
 HUD_Interface.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Dma_defines.h
 HUD_Interface.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Cla_defines.h
 HUD_Interface.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_DefaultISR.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h
-HUD_Interface.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h
+HUD_Interface.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h
 HUD_Interface.obj: ../HUD_Interface.hpp
 HUD_Interface.obj: ../SPI_Device.hpp
 HUD_Interface.obj: ../SPI_Device.hpp
@@ -154,12 +154,12 @@ HUD_Interface.obj: ../SPI_Device.hpp
 ../HUD_Interface.cpp: 
 ../header.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/std.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h: 
 C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/std.h: 
 C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/C28_float.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Log.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/xdc.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Types.h: 
@@ -291,13 +291,13 @@ C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_I2c_d
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Dma_defines.h: 
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Cla_defines.h: 
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_DefaultISR.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h: 
 ../HUD_Interface.hpp: 
 ../SPI_Device.hpp: 
 ../SPI_Device.hpp: 

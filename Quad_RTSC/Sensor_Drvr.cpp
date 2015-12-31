@@ -15,6 +15,7 @@ Sensor_Drvr::Sensor_Drvr(void)
 	zeroDatagram();
 	Sensor_Setup();
 	Sensor_testConnect();		// Check sensor communication on I2C
+	Calibrate_Sensors();
 }
 
 Sensor_Drvr::~Sensor_Drvr(void)
@@ -73,6 +74,17 @@ void Sensor_Drvr::Sensor_Setup(void) {
 	m_mpu9150_i2c->writeByte(MPU9150_INT_PIN_CFG, 0x02);	// Place MPU into Pass-Through mode to access Compass
 	m_mpu9150_i2c->writeByte(MPU9150_USER_CTRL, 0x00);
 
+//	m_mpu9150_i2c->writeByte(MPU9150_PWR_MGMT_1, 0x03);      // Set clock source and clear sleep bit
+//    m_mpu9150_i2c->writeByte(MPU9150_SMPLRT_DIV, 0x63);      // Set the clock rate to 100 Hz : Sample Rate = Gyroscope Output Rate(1kHz) / (1 + SMPLRT_DIV)
+//    m_mpu9150_i2c->writeByte(MPU9150_GYRO_CONFIG, 0x00);     // Set Full Scale Gyro Range at below settings
+//    m_mpu9150_i2c->writeByte(MPU9150_ACCEL_CONFIG, 0x00);    // Set Full Scale Accel Range plus Accel HPF at below settings (No highpass)
+//    m_mpu9150_i2c->writeByte(MPU9150_INT_ENABLE, 0xE1);      // Enable Free Fall, Motion detect, Zero Motion, and Data Rdy Interrupts E1
+//    m_mpu9150_i2c->writeByte(MPU9150_I2C_MST_CTRL, 0x00);    // Disable Slave FIFO writes
+//    m_mpu9150_i2c->writeByte(MPU9150_INT_PIN_CFG, 0x02);     // Place MPU into Pass-Through mode to access Compass
+//    m_mpu9150_i2c->writeByte(MPU9150_USER_CTRL, 0x00);
+//    m_mpu9150_i2c->writeByte(MPU9150_CONFIG, 0x04);          // Enable DLPF at below settings (No lowpass)
+
+
 
 	//// end Accel
 
@@ -88,6 +100,8 @@ void Sensor_Drvr::Sensor_Setup(void) {
 	m_alti_i2c->writeByte(0x13, 0x07); 		// Enable Data Flags in PT_DATA_CFG
 	m_alti_i2c->writeByte(0x26, 0xB9);		// Set sensor to Active
 
+
+//	CpuTimer0Regs.TCR.bit.FREE = 1;	// Enable free count mode on the timer
 	//// end Altimeter
 
 }
@@ -96,6 +110,7 @@ void Sensor_Drvr::Sensor_Accel(void) {
 
 	Uint8 accel_dataRdy = 0;
 	Uint8 interrupts = 0;
+	Datagram temp;
 
 	// Check if Data Ready bit is enabled
 	m_mpu9150_i2c->readByte(MPU9150_INT_STATUS);
@@ -129,22 +144,30 @@ void Sensor_Drvr::Sensor_Accel(void) {
 //		m_sensor_buffer[7] = *(int *) dataGram.index + 1;
 
 		// Store the sensor values as formatted floats
-		dataGram.sensorData.Ax = *(int *) &m_sensor_buffer[0];
+		dataGram.sensorData.Ax = *(int16 *) &m_sensor_buffer[0];
 		dataGram.sensorData.Ax = (*(float *) &dataGram.sensorData.Ax) / ACCEL_SENS0;
-		dataGram.sensorData.Ay = *(int *) &m_sensor_buffer[1];
+		dataGram.sensorData.Ay = *(int16 *) &m_sensor_buffer[1];
 		dataGram.sensorData.Ay = (*(float *) &dataGram.sensorData.Ay) / ACCEL_SENS0;
-		dataGram.sensorData.Az = *(int *) &m_sensor_buffer[2];
+		dataGram.sensorData.Az = *(int16 *) &m_sensor_buffer[2];
 		dataGram.sensorData.Az = (*(float *) &dataGram.sensorData.Az) / ACCEL_SENS0;
 
-		dataGram.sensorData.T[0] = *(int *) &m_sensor_buffer[3];
+		dataGram.sensorData.T[0] = *(int16 *) &m_sensor_buffer[3];
 		dataGram.sensorData.T[0] = ((*(float *) &dataGram.sensorData.T[0] / 340) + 35) * 1.8 + 32;// in degrees F
 
-		dataGram.sensorData.Gx = *(int *) &m_sensor_buffer[4];
+		dataGram.sensorData.Gx = *(int16 *) &m_sensor_buffer[4];
 		dataGram.sensorData.Gx = *(float *) &dataGram.sensorData.Gx / GYRO_SENS0;
-		dataGram.sensorData.Gy = *(int *) &m_sensor_buffer[5] / GYRO_SENS0;
+		dataGram.sensorData.Gy = *(int16 *) &m_sensor_buffer[5];
 		dataGram.sensorData.Gy = *(float *) &dataGram.sensorData.Gy / GYRO_SENS0;
-		dataGram.sensorData.Gz = *(int *) &m_sensor_buffer[6] / GYRO_SENS0;
+		dataGram.sensorData.Gz = *(int16 *) &m_sensor_buffer[6];
 		dataGram.sensorData.Gz = *(float *) &dataGram.sensorData.Gz / GYRO_SENS0;
+
+		temp.sensorData.Ax = (57.29577) * atan(dataGram.sensorData.Ax / sqrt(dataGram.sensorData.Ay * dataGram.sensorData.Ay + dataGram.sensorData.Az * dataGram.sensorData.Az));
+		temp.sensorData.Ay = (57.29577) * atan(dataGram.sensorData.Ay / sqrt(dataGram.sensorData.Ax * dataGram.sensorData.Ax + dataGram.sensorData.Az * dataGram.sensorData.Az));
+		temp.sensorData.Az = (57.29577) * atan(sqrt(dataGram.sensorData.Ax * dataGram.sensorData.Ax + dataGram.sensorData.Ay * dataGram.sensorData.Ay) / dataGram.sensorData.Az);
+
+		dataGram.sensorData.Ax = temp.sensorData.Ax;
+		dataGram.sensorData.Ay = temp.sensorData.Ay;
+		dataGram.sensorData.Az = temp.sensorData.Az;
 
 		dataGram.dT = dtTimer;
 		dataGram.time = dataGram.time + dtTimer;
@@ -175,13 +198,13 @@ void Sensor_Drvr::Sensor_Mag(void) {
 		m_magno_i2c->readByte(0x09);
 
 		if (m_magno_i2c->m_I2C_buffer[0] != 0x40) {
-			dataGram.sensorData.Mx = *(int *) &m_mag_buffer[0];
+			dataGram.sensorData.Mx = *(int16 *) &m_mag_buffer[0];
 			dataGram.sensorData.Mx = *(float *) &dataGram.sensorData.Mx * 0.3;
 
-			dataGram.sensorData.My = *(int *) &m_mag_buffer[1];
+			dataGram.sensorData.My = *(int16 *) &m_mag_buffer[1];
 			dataGram.sensorData.My = *(float *) &dataGram.sensorData.My * 0.3;
 
-			dataGram.sensorData.Mz = *(int *) &m_mag_buffer[2];
+			dataGram.sensorData.Mz = *(int16 *) &m_mag_buffer[2];
 			dataGram.sensorData.Mz = *(float *) &dataGram.sensorData.Mz * 0.3;
 
 			// Normalize data
@@ -217,10 +240,10 @@ void Sensor_Drvr::Sensor_Altimeter(void) {
 		temp2 = m_alti_i2c->m_I2C_buffer[4] >> 4;
 		temp3 = (float) temp2;
 
-		dataGram.sensorData.A = *(int *) &m_alt_buffer[0];
+		dataGram.sensorData.A = *(int16 *) &m_alt_buffer[0];
 		dataGram.sensorData.A = *(float *) &dataGram.sensorData.A + (temp1 / 16);
 
-		dataGram.sensorData.T[1] = *(int *) &m_alt_buffer[1];
+		dataGram.sensorData.T[1] = *(int16 *) &m_alt_buffer[1];
 		dataGram.sensorData.T[1] = (*(float *) &dataGram.sensorData.T[1] + (temp3 / 16)) * 1.8 + 32; // Convert to deg F by (deg C)*1.8 + 32
 
 	}
@@ -248,16 +271,17 @@ void Sensor_Drvr::Sensor_testConnect(void) {
 Datagram Sensor_Drvr::GetSensorData(void) {
 
 	// Measure the time between reads
-	dtTimer = ((float) (0xFFFFFFFF - CpuTimer0Regs.TIM.all)) / 90000000;
+//	dtTimer = ((float) (0xFFFFFFFF - CpuTimer0Regs.TIM.all)) / 90000000;
+	dtTimer = 0.000180;
 
 	// Get data
 	Sensor_Accel();	Sensor_Altimeter();	Sensor_Mag();
 	dataGram.index = dataGram.index + 1;
 
 	// Restart the timer register
-	CpuTimer0Regs.TCR.bit.TSS = 1;	// Stop timer
-	CpuTimer0Regs.TCR.bit.TRB = 1;	// Reload timer
-	CpuTimer0Regs.TCR.bit.TSS = 0;	// Restart timer
+//	CpuTimer0Regs.TCR.bit.TSS = 1;	// Stop timer
+//	CpuTimer0Regs.TCR.bit.TRB = 1;	// Reload timer
+//	CpuTimer0Regs.TCR.bit.TSS = 0;	// Restart timer
 
 	return dataGram;
 }
@@ -284,11 +308,13 @@ void Sensor_Drvr::zeroDatagram(void){
 //		dataGram.Ki[i] = 0;
 //		dataGram.Kd[i] = 0;
 
-		dataGram.rateKp[i] = 0.05;
-		dataGram.rateKi[i] = 0.10;
+		dataGram.rateKp[i] = 0.98;
+		dataGram.rateKi[i] = 1;
+		dataGram.rateKd[i] = 0.00;
 
-		dataGram.attitudeKp[i] = 0.05;
-		dataGram.attitudeKi[i] = 0.10;
+		dataGram.attitudeKp[i] = 0.98;
+		dataGram.attitudeKi[i] = 1;
+		dataGram.attitudeKd[i] = 0.00;
 	}
 
 	// Roll
@@ -303,4 +329,24 @@ void Sensor_Drvr::zeroDatagram(void){
 
 }
 
+void Sensor_Drvr::Calibrate_Sensors(void)
+{
+	if (sensors_connected[0])
+	{
+		for (int i = 0; i < 50; i++) {
+			Sensor_Accel();
+			dataGram.GxOffset = dataGram.sensorData.Gx;
+			dataGram.GyOffset = dataGram.sensorData.Gy;
+			dataGram.GzOffset = dataGram.sensorData.Gz;
+		}
+	}
+	if (sensors_connected[1])
+	{
+		Sensor_Mag();
+	}
+	if (sensors_connected[2])
+	{
+		Sensor_Altimeter();
+	}
+}
 

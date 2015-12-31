@@ -1538,9 +1538,6 @@ ti_sysbios_heaps_HeapMem_Object__ ti_sysbios_heaps_HeapMem_Object__table__V[1];
 /* --> getSensorData */
 extern xdc_Void getSensorData(xdc_UArg);
 
-/* --> sensor_Drvr */
-extern void* sensor_Drvr;
-
 /* Object__table__V */
 ti_sysbios_knl_Clock_Object__ ti_sysbios_knl_Clock_Object__table__V[1];
 
@@ -7003,7 +7000,7 @@ ti_sysbios_knl_Clock_Object__ ti_sysbios_knl_Clock_Object__table__V[1] = {
         (xdc_UInt32)0x1,  /* period */
         1,  /* active */
         ((xdc_Void(*)(xdc_UArg))((xdc_Fxn)getSensorData)),  /* fxn */
-        ((xdc_UArg)((void*)&sensor_Drvr)),  /* arg */
+        ((xdc_UArg)0),  /* arg */
     },
 };
 

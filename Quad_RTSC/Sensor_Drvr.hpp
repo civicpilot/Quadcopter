@@ -29,14 +29,15 @@ public:
 	void 	Sensor_Accel		(void);
 	void 	Sensor_Mag			(void);
 	void 	Sensor_Altimeter	(void);
+	void 	Calibrate_Sensors	(void);
 
 	I2C_Device *m_mpu9150_i2c;
 	I2C_Device *m_magno_i2c;
 	I2C_Device *m_alti_i2c;
 
-	unsigned int m_sensor_buffer[8];
-	unsigned int m_alt_buffer[2];
-	unsigned int m_mag_buffer[3];
+	Uint16 m_sensor_buffer[8];
+	Uint32 m_alt_buffer[2];
+	Uint16 m_mag_buffer[3];
 	float 		 dtTimer;
 
 public:

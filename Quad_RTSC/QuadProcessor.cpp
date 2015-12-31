@@ -8,7 +8,7 @@
 #include "header.h"
 #include "QuadProcessor.hpp"
 
-#define ALPHA 0.9
+#define ALPHA 0.98
 #define ERROR_SUM_MAX			.25
 
 Quad_Processor::Quad_Processor() {
@@ -17,6 +17,9 @@ Quad_Processor::Quad_Processor() {
 		m_pidCommands[i] = 0;
 
 	m_cmdTransform = new Command_Transform();
+	m_lastDataGram.roll = 0;
+	m_lastDataGram.pitch = 0;
+	m_lastDataGram.yaw = 0;
 }
 
 Quad_Processor::~Quad_Processor() {
@@ -25,7 +28,7 @@ Quad_Processor::~Quad_Processor() {
 
 void Quad_Processor::Process_Data(Datagram data) {
 	// MotionCmds will be coming from user input.
-	float motionCmds[4] = {0, 0, 0, 0};
+	float motionCmds[4] = {250, 0, 0, 0};
 	m_dataGram = data;
 	CompFilter();
 	CollectData(motionCmds);
@@ -48,9 +51,9 @@ float Quad_Processor::PID2(float desired, float current_pos, float* last_pos, fl
 		*error_sum += error * m_dataGram.dT/2;
 
 	// Form: cmd = Kp*error + Ki*errorIntegral + Kd*errorDerivative
-//	command = 	( sensorData.Kp[type] * error )
-//			  + ( sensorData.Ki[type] * (*error_sum) )
-//			  + ( sensorData.Kd[type] * (current_pos - *last_pos) / sensorData.dT );
+	command = 	( m_dataGram.rateKp[type] * error )
+			  + ( m_dataGram.rateKp[type] * (*error_sum) )
+			  + ( m_dataGram.rateKp[type] * (current_pos - *last_pos) / m_dataGram.dT );
 
 	*last_pos = current_pos;
 
@@ -78,8 +81,8 @@ float Quad_Processor::RatePI(float desired, float current_pos, float* last_pos, 
 
 	// Form: cmd = Kp*error + Ki*errorIntegral + Kd*errorDerivative
 	command = 	( m_dataGram.rateKp[type] * error )
-			  + ( m_dataGram.rateKi[type] * (*error_sum) );
-//			  + ( m_dataGram.rateKd[type] * (current_pos - *last_pos) / m_dataGram.dT );
+			  + ( m_dataGram.rateKi[type] * (*error_sum) )
+			  + ( m_dataGram.rateKd[type] * (current_pos - *last_pos) / m_dataGram.dT );
 
 	*last_pos = current_pos;
 
@@ -107,8 +110,8 @@ float Quad_Processor::AttitudePI(float desired, float current_pos, float* last_p
 
 	// Form: cmd = Kp*error + Ki*errorIntegral + Kd*errorDerivative
 	command = 	( m_dataGram.attitudeKp[type] * error )
-			  + ( m_dataGram.attitudeKi[type] * (*error_sum) );
-//			  + ( m_dataGram.attitudeKd[type] * (current_pos - *last_pos) / m_dataGram.dT );
+			  + ( m_dataGram.attitudeKi[type] * (*error_sum) )
+			  + ( m_dataGram.attitudeKd[type] * (current_pos - *last_pos) / m_dataGram.dT );
 
 	*last_pos = current_pos;
 //
@@ -122,9 +125,30 @@ float Quad_Processor::AttitudePI(float desired, float current_pos, float* last_p
 // Should be called from a TSK
 void Quad_Processor::CompFilter(void)
 {
-	m_dataGram.roll = (ALPHA)*(m_dataGram.roll + m_dataGram.sensorData.Gx*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Ax);
-	m_dataGram.pitch = (ALPHA)*(m_dataGram.pitch + m_dataGram.sensorData.Gy*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Ay);
-	m_dataGram.yaw = (ALPHA)*(m_dataGram.yaw + m_dataGram.sensorData.Gz*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Az);
+	int oneOff = 0;
+	if (oneOff == 0)
+	{
+		m_dataGram.roll = m_dataGram.sensorData.Ax;
+		m_dataGram.pitch = m_dataGram.sensorData.Ay;
+		m_dataGram.yaw = m_dataGram.sensorData.Az;
+		oneOff++;
+	}
+
+	m_dataGram.roll = (1 - ALPHA)*(m_dataGram.roll + (m_dataGram.sensorData.Gx)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Ax);
+	m_dataGram.pitch = (1 - ALPHA)*(m_dataGram.pitch + (m_dataGram.sensorData.Gy)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Ay);
+	m_dataGram.yaw = (1 - ALPHA)*(m_dataGram.yaw + (m_dataGram.sensorData.Gz)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Az);
+
+//	m_dataGram.roll = (ALPHA)*(m_dataGram.roll + (m_dataGram.sensorData.Gx)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Ax);
+//	m_dataGram.pitch = (ALPHA)*(m_dataGram.pitch + (m_dataGram.sensorData.Gy)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Ay);
+//	m_dataGram.yaw = (ALPHA)*(m_dataGram.yaw + (m_dataGram.sensorData.Gz)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Az);
+
+//	m_dataGram.roll = (ALPHA)*(m_dataGram.sensorData.Gx*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Ax);
+//	m_dataGram.pitch = (ALPHA)*(m_dataGram.sensorData.Gy*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Ay);
+//	m_dataGram.yaw = (ALPHA)*(m_dataGram.sensorData.Gz*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Az);
+
+	m_lastDataGram.roll = m_dataGram.roll;
+	m_lastDataGram.pitch = m_dataGram.pitch;
+	m_lastDataGram.yaw = m_dataGram.yaw;
 }
 // Should be called from a TSK
 void Quad_Processor::CollectData(float *motionCmds)
@@ -143,13 +167,18 @@ void Quad_Processor::CollectData(float *motionCmds)
 
 	// Inner PI loop (Rate)
 	// Roll
-	m_pidCommands[0] = RatePI(attitudeCmds[1], m_dataGram.sensorData.Gx, &m_sensorErrs.old_pos_Gx, &m_sensorErrs.sum_error_Gx,0);
+	m_pidCommands[0] = RatePI(attitudeCmds[0], m_dataGram.sensorData.Gx, &m_sensorErrs.old_pos_Gx, &m_sensorErrs.sum_error_Gx,0);
 	// Pitch
-	m_pidCommands[1] = RatePI(attitudeCmds[2], m_dataGram.sensorData.Gy, &m_sensorErrs.old_pos_Gy, &m_sensorErrs.sum_error_Gy,1);
+	m_pidCommands[1] = RatePI(attitudeCmds[1], m_dataGram.sensorData.Gy, &m_sensorErrs.old_pos_Gy, &m_sensorErrs.sum_error_Gy,1);
 	// Yaw
-	m_pidCommands[2] = RatePI(attitudeCmds[3], m_dataGram.sensorData.Gz, &m_sensorErrs.old_pos_Gz, &m_sensorErrs.sum_error_Gz,2);
+	m_pidCommands[2] = RatePI(attitudeCmds[2], m_dataGram.sensorData.Gz, &m_sensorErrs.old_pos_Gz, &m_sensorErrs.sum_error_Gz,2);
 	// Thrust
-	m_pidCommands[3] = RatePI(attitudeCmds[0], m_dataGram.sensorData.A, &m_sensorErrs.old_pos_altitude, &m_sensorErrs.sum_error_altitude,3);
+	m_pidCommands[3] = RatePI(attitudeCmds[3], m_dataGram.sensorData.A, &m_sensorErrs.old_pos_altitude, &m_sensorErrs.sum_error_altitude,3);
+
+//	m_pidCommands[0] = PID2(motionCmds[1], m_dataGram.roll, &m_sensorErrs.old_pos_roll, &m_sensorErrs.sum_error_roll,0);
+//	m_pidCommands[1] = PID2(motionCmds[2], m_dataGram.pitch, &m_sensorErrs.old_pos_pitch, &m_sensorErrs.sum_error_pitch,1);
+//	m_pidCommands[2] = PID2(motionCmds[3], m_dataGram.yaw, &m_sensorErrs.old_pos_yaw, &m_sensorErrs.sum_error_yaw,2);
+//	m_pidCommands[3] = PID2(motionCmds[0], m_dataGram.sensorData.A, &m_sensorErrs.old_pos_altitude, &m_sensorErrs.sum_error_altitude,3);
 
 	// Limit Range of motion
 //	if (fabs(m_dataGram.roll) > 0.60 || fabs(m_dataGram.pitch) > 0.60) {

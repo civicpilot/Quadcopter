@@ -3,12 +3,12 @@
 QuadProcessor.obj: ../QuadProcessor.cpp
 QuadProcessor.obj: ../header.h
 QuadProcessor.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/std.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h
 QuadProcessor.obj: C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/std.h
 QuadProcessor.obj: C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/C28_float.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h
 QuadProcessor.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Log.h
 QuadProcessor.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/xdc.h
 QuadProcessor.obj: c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Types.h
@@ -140,13 +140,13 @@ QuadProcessor.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/i
 QuadProcessor.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Dma_defines.h
 QuadProcessor.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Cla_defines.h
 QuadProcessor.obj: C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_DefaultISR.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h
-QuadProcessor.obj: c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h
+QuadProcessor.obj: C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h
 QuadProcessor.obj: ../QuadProcessor.hpp
 QuadProcessor.obj: ../Command_Transform.hpp
 QuadProcessor.obj: ../PWM_Driver.hpp
@@ -155,12 +155,12 @@ QuadProcessor.obj: ../LED_Driver.hpp
 ../QuadProcessor.cpp: 
 ../header.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/std.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/linkage.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stddef.h: 
 C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/std.h: 
 C:/ti/tirtos_c2000_2_10_01_38/products/bios_6_41_00_26/packages/ti/targets/C28_float.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdint.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Log.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/xdc.h: 
 c:/ti/xdctools_3_30_05_60_core/packages/xdc/runtime/Types.h: 
@@ -292,13 +292,13 @@ C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_I2c_d
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Dma_defines.h: 
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_Cla_defines.h: 
 C:/ti/controlSUITE/device_support/f2806x/v141/F2806x_common/include/F2806x_DefaultISR.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h: 
-c:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlib.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdlibf.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdio.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/stdarg.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/math.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/string.h: 
+C:/ti/ccsv6/tools/compiler/c2000_6.2.11/include/float.h: 
 ../QuadProcessor.hpp: 
 ../Command_Transform.hpp: 
 ../PWM_Driver.hpp: 

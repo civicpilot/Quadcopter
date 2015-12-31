@@ -7,7 +7,7 @@
 #include "header.h"
 #include "I2C_Device.hpp"
 
-I2C_Device::I2C_Device(unsigned int devAddress)
+I2C_Device::I2C_Device(Uint8 devAddress)
 {
 	I2CA_Init();
 	m_devAddr = devAddress;
@@ -42,9 +42,9 @@ void I2C_Device::I2CA_Init(void)
 		EDIS;
 
 	   I2caRegs.I2CSAR = 0x00;     		  // Slave address - EEPROM control code
-	   I2caRegs.I2CPSC.all = 6;           // Prescaler - 1 Mhz on module clk from 90MHz CPU
+	   I2caRegs.I2CPSC.all = 7;           // Prescaler - 1 Mhz on module clk from 90MHz CPU
 	   I2caRegs.I2CCLKL = 10;             // 1MHz /4 = 250kHz
-	   I2caRegs.I2CCLKH = 5;              // 1MHz /3 = 333.3kHz
+	   I2caRegs.I2CCLKH = 10;              // 1MHz /3 = 333.3kHz
 	   I2caRegs.I2CIER.all = 0x3E;        // Enable SCD,XRDY,RRDY,ARDY,NACK interrupts
 	   I2caRegs.I2CMDR.bit.IRS = 1;       // Take I2C out of reset, Stop I2C when suspended
 	   I2caRegs.I2CFFTX.all = 0x0000;     // Disable FIFO mode and TXFIFO
@@ -52,7 +52,7 @@ void I2C_Device::I2CA_Init(void)
 	}
 }
 
-void I2C_Device::writeBytes(unsigned int regAddr, unsigned int numBytes, unsigned int *msg)
+void I2C_Device::writeBytes(Uint8 regAddr, Uint8 numBytes, Uint8 *msg)
 {
 	I2caRegs.I2CSAR = m_devAddr;   			// Set slave address
 	I2caRegs.I2CCNT = 1+numBytes;           // Set count to register address + buffer
@@ -75,20 +75,20 @@ void I2C_Device::writeBytes(unsigned int regAddr, unsigned int numBytes, unsigne
 	   }
 
 //	DELAY_US(50);
-	for (int a = 0; a < 10000; a++);
+	for (int a = 0; a < 20; a++);
 
 	m_I2C_timeout = 0;
 }
 
-void I2C_Device::writeByte(unsigned int regAddr, unsigned int msg0)
+void I2C_Device::writeByte(Uint8 regAddr, Uint8 msg0)
 {
-	unsigned int msg[1];
+	Uint8 msg[1];
 	msg[0] =  msg0;
 	writeBytes(regAddr, 1, msg);
 }
 
 
-void I2C_Device::readBytes(unsigned int regAddr, unsigned int numBytes)
+void I2C_Device::readBytes(Uint8 regAddr, Uint8 numBytes)
 {
 	I2caRegs.I2CSAR = m_devAddr;   		// Set slave address
 	I2caRegs.I2CCNT = 1;            	// Set count to register address
@@ -122,12 +122,12 @@ void I2C_Device::readBytes(unsigned int regAddr, unsigned int numBytes)
 	   }
 
 //	DELAY_US(50);
-	for (int a = 0; a < 10000; a++);
+	for (int a = 0; a < 20; a++);
 
 	m_I2C_timeout = 0;
 }
 
-void I2C_Device::readByte(unsigned int regAddr)
+void I2C_Device::readByte(Uint8 regAddr)
 {
 	readBytes(regAddr, 1);
 }

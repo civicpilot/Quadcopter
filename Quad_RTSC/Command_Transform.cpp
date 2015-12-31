@@ -33,13 +33,13 @@ void Command_Transform::CommandMixer(float *motorCmd, float *pidCmd, unsigned in
 
 	// X mode
 	if (flightMode == 0){
-		if (motorCmd[4] != 0 || motorCmd[5] != 0 || motorCmd[6] != 0) {
+//		if (motorCmd[4] != 0 || motorCmd[5] != 0 || motorCmd[6] != 0) {
 			//						   thrust,		  roll,		  pitch,	      yaw
-			PWM[2] = START_DUTYCYCLE + motorCmd[0] - pidCmd[0] - pidCmd[1] + pidCmd[2];	// Motor 1
-			PWM[0] = START_DUTYCYCLE + motorCmd[0] - pidCmd[0] + pidCmd[1] - pidCmd[2];	// Motor 2
-			PWM[1] = START_DUTYCYCLE + motorCmd[0] + pidCmd[0] + pidCmd[1] + pidCmd[2];	// Motor 3
-			PWM[3] = START_DUTYCYCLE + motorCmd[0] + pidCmd[0] - pidCmd[1] - pidCmd[2];	// Motor 4
-		}
+			PWM[2] = START_DUTYCYCLE + motorCmd[0] - pidCmd[0] - pidCmd[1];// + pidCmd[2];	// Motor 1
+			PWM[0] = START_DUTYCYCLE + motorCmd[0] - pidCmd[0] + pidCmd[1];// - pidCmd[2];	// Motor 2
+			PWM[1] = START_DUTYCYCLE + motorCmd[0] + pidCmd[0] + pidCmd[1];// + pidCmd[2];	// Motor 3
+			PWM[3] = START_DUTYCYCLE + motorCmd[0] + pidCmd[0] - pidCmd[1];// - pidCmd[2];	// Motor 4
+//		}
 //		else {
 //			//						        thrust,		   roll,		   pitch,	       yaw
 //			PWM[2] = START_DUTYCYCLE + 3500*(motorCmd[0] - motorCmd[1] - motorCmd[2] + motorCmd[3]);	// Motor 1
@@ -90,7 +90,7 @@ void Command_Transform::CommandMixer(float *motorCmd, float *pidCmd, unsigned in
 			PWM[i] = START_DUTYCYCLE;
 		}
 
-	m_led_driver->flashLED();
+//	m_led_driver->flashLED();
 	m_pwm_driver->PWM_set(PWM);
 }
 
