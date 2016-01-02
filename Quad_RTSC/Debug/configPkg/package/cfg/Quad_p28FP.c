@@ -5252,7 +5252,7 @@ ti_sysbios_family_c28_Timer_Object__ ti_sysbios_family_c28_Timer_Object__table__
         },  /* emulationModeInit */
         ti_sysbios_interfaces_ITimer_RunMode_CONTINUOUS,  /* runMode */
         ti_sysbios_interfaces_ITimer_StartMode_AUTO,  /* startMode */
-        (xdc_UInt32)0x15f90,  /* period */
+        (xdc_UInt32)0x34bc,  /* period */
         ti_sysbios_interfaces_ITimer_PeriodType_COUNTS,  /* periodType */
         (xdc_UInt16)0x0,  /* prescale */
         (xdc_UInt)0xd,  /* intNum */
@@ -6997,7 +6997,7 @@ ti_sysbios_knl_Clock_Object__ ti_sysbios_knl_Clock_Object__table__V[1] = {
         },  /* elem */
         (xdc_UInt32)0x1,  /* timeout */
         (xdc_UInt32)0x1,  /* currTimeout */
-        (xdc_UInt32)0x1,  /* period */
+        (xdc_UInt32)0x10e,  /* period */
         1,  /* active */
         ((xdc_Void(*)(xdc_UArg))((xdc_Fxn)getSensorData)),  /* fxn */
         ((xdc_UArg)0),  /* arg */
@@ -7327,7 +7327,7 @@ asm("	.clink ");
 asm("	.sect \"[1].econst:ti_sysbios_knl_Clock_tickPeriod__C\"");
 asm("	.clink ");
 
-__FAR__ const CT__ti_sysbios_knl_Clock_tickPeriod ti_sysbios_knl_Clock_tickPeriod__C = (xdc_UInt32)0x3e8;
+__FAR__ const CT__ti_sysbios_knl_Clock_tickPeriod ti_sysbios_knl_Clock_tickPeriod__C = (xdc_UInt32)0x96;
 
 /* serviceMargin__C */
 #pragma DATA_SECTION(ti_sysbios_knl_Clock_serviceMargin__C, ".econst:ti_sysbios_knl_Clock_serviceMargin__C");

@@ -10,6 +10,7 @@
 I2C_Device::I2C_Device(Uint8 devAddress)
 {
 	I2CA_Init();
+//	Init2();
 	m_devAddr = devAddress;
 	m_I2C_timeout = 0;
 	for (int i = 0; i < 14; i++)
@@ -29,7 +30,7 @@ void I2C_Device::I2CA_Init(void)
 		EALLOW;
 		SysCtrlRegs.PCLKCR0.bit.I2CAENCLK = 1;     // I2C-A
 
-		GpioCtrlRegs.GPBPUD.bit.GPIO34 = 0; // Hopefully enable flash boot.
+//		GpioCtrlRegs.GPBPUD.bit.GPIO34 = 0; // Hopefully enable flash boot.
 
 		GpioCtrlRegs.GPAPUD.bit.GPIO28 = 0;    // Enable pull-up for GPIO28 (SDAA)
 		GpioCtrlRegs.GPAPUD.bit.GPIO29 = 0;    // Enable pull-up for GPIO29 (SCLA)
@@ -75,7 +76,7 @@ void I2C_Device::writeBytes(Uint8 regAddr, Uint8 numBytes, Uint8 *msg)
 	   }
 
 //	DELAY_US(50);
-	for (int a = 0; a < 20; a++);
+	for (int a = 0; a < 2350; a++);
 
 	m_I2C_timeout = 0;
 }
@@ -102,8 +103,8 @@ void I2C_Device::readBytes(Uint8 regAddr, Uint8 numBytes)
 	if (m_I2C_timeout > 0)
 	{
 		System_printf("TimeoutOccured\n");
-		m_I2C_timeout = 0;
 	}
+	m_I2C_timeout = 0;
 	I2caRegs.I2CDXR = (m_devAddr<<1)+1;  			// Send device read (R)
 	I2caRegs.I2CCNT = numBytes;                 // read numBytes from device
 	I2caRegs.I2CMDR.bit.TRX = 0;                // Set to Receive mode
@@ -122,7 +123,7 @@ void I2C_Device::readBytes(Uint8 regAddr, Uint8 numBytes)
 	   }
 
 //	DELAY_US(50);
-	for (int a = 0; a < 20; a++);
+	for (int a = 0; a < 2350; a++);
 
 	m_I2C_timeout = 0;
 }
@@ -131,7 +132,3 @@ void I2C_Device::readByte(Uint8 regAddr)
 {
 	readBytes(regAddr, 1);
 }
-
-
-
-

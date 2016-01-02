@@ -4,11 +4,16 @@
  *  Created on: Jan 31, 2015
  *      Author: Chris
  */
+#include <xdc/cfg/global.h>
+#include <ti/sysbios/knl/Clock.h>
 #include "header.h"
 #include "Sensor_Drvr.hpp"
 
 Sensor_Drvr::Sensor_Drvr(void)
 {
+	sensors_connected[0] = 0;
+	sensors_connected[1] = 0;
+	sensors_connected[2] = 0;
 	m_mpu9150_i2c = new I2C_Device(MPU9150_ADDR);
 	m_magno_i2c = new I2C_Device(0x0C);
 	m_alti_i2c = new I2C_Device(0x60);
@@ -91,7 +96,7 @@ void Sensor_Drvr::Sensor_Setup(void) {
 	//// Mag Setup
 
 	m_magno_i2c->writeByte(0x0A, 0x01);		// Single measurement mode
-
+	for (int i = 0; i < 2500; i++);
 	//// end Mag
 
 	//// Altimeter Setup
@@ -100,7 +105,7 @@ void Sensor_Drvr::Sensor_Setup(void) {
 	m_alti_i2c->writeByte(0x13, 0x07); 		// Enable Data Flags in PT_DATA_CFG
 	m_alti_i2c->writeByte(0x26, 0xB9);		// Set sensor to Active
 
-
+	for (int i = 0; i < 2500; i++);
 //	CpuTimer0Regs.TCR.bit.FREE = 1;	// Enable free count mode on the timer
 	//// end Altimeter
 
@@ -117,9 +122,10 @@ void Sensor_Drvr::Sensor_Accel(void) {
 	interrupts = m_mpu9150_i2c->m_I2C_buffer[0];
 	accel_dataRdy = (interrupts && 0x01);
 
-	if (accel_dataRdy != 0) {
+	if (accel_dataRdy != 0 && sensors_connected[0]) {
 		// Single Measurement Mode
-//		dtTimer = ((float) (0xFFFFFFFF - CpuTimer0Regs.TIM.all)) / 90000000;// Measure the time between reads
+		uint32_t val = (float) (Clock_getTicks() / 90000000);// Measure the time between reads
+		dtTimer = 0.000062;
 		m_mpu9150_i2c->readBytes(MPU9150_ACCEL_XOUT_H, 14);
 
 //		// Restart the timer register
@@ -160,6 +166,10 @@ void Sensor_Drvr::Sensor_Accel(void) {
 		dataGram.sensorData.Gy = *(float *) &dataGram.sensorData.Gy / GYRO_SENS0;
 		dataGram.sensorData.Gz = *(int16 *) &m_sensor_buffer[6];
 		dataGram.sensorData.Gz = *(float *) &dataGram.sensorData.Gz / GYRO_SENS0;
+//
+		dataGram.sensorData.Gx = (dataGram.sensorData.Gx - dataGram.GxOffset);
+		dataGram.sensorData.Gy = (dataGram.sensorData.Gy - dataGram.GyOffset);
+		dataGram.sensorData.Gz = (dataGram.sensorData.Gz - dataGram.GzOffset);
 
 		temp.sensorData.Ax = (57.29577) * atan(dataGram.sensorData.Ax / sqrt(dataGram.sensorData.Ay * dataGram.sensorData.Ay + dataGram.sensorData.Az * dataGram.sensorData.Az));
 		temp.sensorData.Ay = (57.29577) * atan(dataGram.sensorData.Ay / sqrt(dataGram.sensorData.Ax * dataGram.sensorData.Ax + dataGram.sensorData.Az * dataGram.sensorData.Az));
@@ -182,7 +192,7 @@ void Sensor_Drvr::Sensor_Mag(void) {
 	// Read data ready register bit to check if new data available
 	m_magno_i2c->readByte(0x02);
 
-	if (m_magno_i2c->m_I2C_buffer[0] == 0x01) {
+	if (m_magno_i2c->m_I2C_buffer[0] == 0x01 && sensors_connected[1]) {
 		// Read the raw values.
 		m_magno_i2c->readBytes(0x03, 6);
 
@@ -225,7 +235,7 @@ void Sensor_Drvr::Sensor_Altimeter(void) {
 	float temp3 = 0;
 
 	m_alti_i2c->readByte(0x00);
-	if (m_alti_i2c->m_I2C_buffer[0] & 0x08) {
+	if (m_alti_i2c->m_I2C_buffer[0] & 0x08 && sensors_connected[2]) {
 		/* Read OUT_P 3 bytes and OUT_T 3 bytes, the LSB of each is the fractional part */
 		/* This also clears the Data Rdy Interrupt */
 		m_alti_i2c->readBytes(0x01, 5);
@@ -271,11 +281,14 @@ void Sensor_Drvr::Sensor_testConnect(void) {
 Datagram Sensor_Drvr::GetSensorData(void) {
 
 	// Measure the time between reads
-//	dtTimer = ((float) (0xFFFFFFFF - CpuTimer0Regs.TIM.all)) / 90000000;
+//	dtTimer = ((float) (0xFFFFFFFF - Timer_getCount(timer0))) / 90000000;
+//	dtTimer = Timer_getCount(timer0);
 	dtTimer = 0.000180;
 
 	// Get data
-	Sensor_Accel();	Sensor_Altimeter();	Sensor_Mag();
+	Sensor_Accel();
+//	Sensor_Altimeter();
+//	Sensor_Mag();
 	dataGram.index = dataGram.index + 1;
 
 	// Restart the timer register
@@ -295,6 +308,7 @@ void Sensor_Drvr::zeroDatagram(void){
 	dataGram.sensorData.T[0] = 0;		dataGram.sensorData.T[1] = 0;
 	dataGram.index = 0;	    dataGram.time = 0;	dataGram.dT = 0;
 	dataGram.roll = 0;		dataGram.pitch = 0;	dataGram.yaw = 0;
+	dataGram.GxOffset = 0; dataGram.GyOffset = 0; dataGram.GzOffset = 0;
 //	dataGram.r_a[0] = 0;	dataGram.r_a[1] = 0;	dataGram.r_a[2] = 0;
 //	dataGram.r_g[0] = 0;	dataGram.r_g[1] = 0;	dataGram.r_g[2] = 0;
 //	dataGram.mu[0] = 0;	dataGram.mu[1] = 0;	dataGram.mu[2] = 0;
@@ -308,12 +322,12 @@ void Sensor_Drvr::zeroDatagram(void){
 //		dataGram.Ki[i] = 0;
 //		dataGram.Kd[i] = 0;
 
-		dataGram.rateKp[i] = 0.98;
-		dataGram.rateKi[i] = 1;
+		dataGram.rateKp[i] = 2.5;
+		dataGram.rateKi[i] = 0.5;
 		dataGram.rateKd[i] = 0.00;
 
-		dataGram.attitudeKp[i] = 0.98;
-		dataGram.attitudeKi[i] = 1;
+		dataGram.attitudeKp[i] = 2.5;
+		dataGram.attitudeKi[i] = 0.5;
 		dataGram.attitudeKd[i] = 0.00;
 	}
 
@@ -335,10 +349,10 @@ void Sensor_Drvr::Calibrate_Sensors(void)
 	{
 		for (int i = 0; i < 50; i++) {
 			Sensor_Accel();
-			dataGram.GxOffset = dataGram.sensorData.Gx;
-			dataGram.GyOffset = dataGram.sensorData.Gy;
-			dataGram.GzOffset = dataGram.sensorData.Gz;
 		}
+			dataGram.GxOffset = dataGram.sensorData.Gx / (57.29577);
+			dataGram.GyOffset = dataGram.sensorData.Gy / (57.29577);
+			dataGram.GzOffset = dataGram.sensorData.Gz / (57.29577);
 	}
 	if (sensors_connected[1])
 	{

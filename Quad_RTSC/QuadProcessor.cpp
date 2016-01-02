@@ -9,7 +9,7 @@
 #include "QuadProcessor.hpp"
 
 #define ALPHA 0.98
-#define ERROR_SUM_MAX			.25
+#define ERROR_SUM_MAX .25
 
 Quad_Processor::Quad_Processor() {
 	// TODO Auto-generated constructor stub
@@ -28,7 +28,7 @@ Quad_Processor::~Quad_Processor() {
 
 void Quad_Processor::Process_Data(Datagram data) {
 	// MotionCmds will be coming from user input.
-	float motionCmds[4] = {250, 0, 0, 0};
+	float motionCmds[4] = {0, 0, 0, 0};
 	m_dataGram = data;
 	CompFilter();
 	CollectData(motionCmds);
@@ -134,13 +134,13 @@ void Quad_Processor::CompFilter(void)
 		oneOff++;
 	}
 
-	m_dataGram.roll = (1 - ALPHA)*(m_dataGram.roll + (m_dataGram.sensorData.Gx)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Ax);
-	m_dataGram.pitch = (1 - ALPHA)*(m_dataGram.pitch + (m_dataGram.sensorData.Gy)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Ay);
-	m_dataGram.yaw = (1 - ALPHA)*(m_dataGram.yaw + (m_dataGram.sensorData.Gz)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Az);
+//	m_dataGram.roll = (1 - ALPHA)*(m_dataGram.roll + (m_dataGram.sensorData.Gx)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Ax);
+//	m_dataGram.pitch = (1 - ALPHA)*(m_dataGram.pitch + (m_dataGram.sensorData.Gy)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Ay);
+//	m_dataGram.yaw = (1 - ALPHA)*(m_dataGram.yaw + (m_dataGram.sensorData.Gz)*m_dataGram.dT) + (ALPHA)*(m_dataGram.sensorData.Az);
 
-//	m_dataGram.roll = (ALPHA)*(m_dataGram.roll + (m_dataGram.sensorData.Gx)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Ax);
-//	m_dataGram.pitch = (ALPHA)*(m_dataGram.pitch + (m_dataGram.sensorData.Gy)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Ay);
-//	m_dataGram.yaw = (ALPHA)*(m_dataGram.yaw + (m_dataGram.sensorData.Gz)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Az);
+	m_dataGram.roll = (ALPHA)*(m_dataGram.roll + (m_dataGram.sensorData.Gx)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Ax);
+	m_dataGram.pitch = (ALPHA)*(m_dataGram.pitch + (m_dataGram.sensorData.Gy)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Ay);
+	m_dataGram.yaw = (ALPHA)*(m_dataGram.yaw + (m_dataGram.sensorData.Gz)*m_dataGram.dT) + (1 - ALPHA)*(m_dataGram.sensorData.Az);
 
 //	m_dataGram.roll = (ALPHA)*(m_dataGram.sensorData.Gx*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Ax);
 //	m_dataGram.pitch = (ALPHA)*(m_dataGram.sensorData.Gy*m_dataGram.dT) + (1-ALPHA)*(m_dataGram.sensorData.Ay);

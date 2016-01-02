@@ -45,7 +45,7 @@ void taskFxn(UArg a0, UArg a1)
 Int main(void)
 {
 	System_printf("System Initialized\n");
-//	hud_Interface = new HUD_Interface();
+	hud_Interface = new HUD_Interface();
 	sensor_Drvr = new Sensor_Drvr();
 //	sensor_data = sensor_Drvr->GetSensorData();
 	ledDriver = new LED_Driver();
@@ -64,7 +64,9 @@ Int main(void)
 void getSensorData(UArg arg)
 {
 	sensor_data = sensor_Drvr->GetSensorData();
+	hud_Interface->parseInputData(motionCommands);
 	quadProc->Process_Data(sensor_data);
 	ledDriver->flashLED();
 	return;
 }
+
