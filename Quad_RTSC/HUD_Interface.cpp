@@ -46,7 +46,7 @@ void HUD_Interface::parseInputData(float *motionCommands) // Reads one unsigned 
 		 rdata = SpibRegs.SPIRXBUF;
 
     if (rdata != 255)
-    	int value = 0xFF;
+    	int value = 0x00;
 
 //		rdata = m_xb_Device->readByteSPI();
 
