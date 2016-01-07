@@ -10,7 +10,6 @@
 I2C_Device::I2C_Device(Uint8 devAddress)
 {
 	I2CA_Init();
-//	Init2();
 	m_devAddr = devAddress;
 	m_I2C_timeout = 0;
 	for (int i = 0; i < 14; i++)

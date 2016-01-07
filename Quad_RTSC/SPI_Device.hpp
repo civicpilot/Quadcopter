@@ -19,8 +19,8 @@ public:
 	~SPI_Device(){};
 
 	void spi_init(void);
-	unsigned int readByteSPI(void);
-	void writeByteSPI(unsigned int txdata);
+	Uint8 readByteSPI(void);
+	void writeByteSPI(Uint8 txdata);
 	void Empty_SpiBuffer(void);
 
 	FrameBuffer *m_XB_txBuffer;

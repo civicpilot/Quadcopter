@@ -56,7 +56,7 @@ typedef struct{
 
 
 typedef struct {
-	unsigned int buffer[50];
+	Uint8 buffer[50];
 	unsigned int pos;
 	unsigned int EOD;
 	unsigned int cap;

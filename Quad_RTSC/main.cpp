@@ -25,6 +25,7 @@ extern "C"
 	void parseInputData(UArg arg);
 	void getSensorData(UArg arg);
 	void taskFxn(UArg a0, UArg a1);
+	void getHID(UArg arg);
 }
 
 /*
@@ -68,5 +69,10 @@ void getSensorData(UArg arg)
 	quadProc->Process_Data(sensor_data);
 	ledDriver->flashLED();
 	return;
+}
+
+void getHID(UArg arg)
+{
+//	ledDriver->flashLED();
 }
 
