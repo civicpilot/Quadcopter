@@ -45,15 +45,20 @@ void SPI_Device::spi_init(void) {
 
 	EDIS;
 
+	int i = 0;
+	for (i = 0; i < 20000; i++);
+	for (i = 0; i < 20000; i++);
+	for (i = 0; i < 20000; i++);
+
 	// Initialize SPI FIFO registers
 	SpibRegs.SPIFFTX.all = 0xE040;
 	SpibRegs.SPIFFRX.all = 0x2044;
 	SpibRegs.SPIFFCT.all = 0x0;
 
 	SpibRegs.SPICCR.all = 0x0007; 	// Reset on, rising edge, 8-bit char bits
-	SpibRegs.SPICTL.all = 0x000E; // Enable master mode, delayed phase, enable talk, and SPI int disabled.
+	SpibRegs.SPICTL.all = 0x000E; // 0x000E Enable master mode, delayed phase, enable talk, and SPI int disabled.
 
-	SpibRegs.SPIBRR = 0x007F; //0x000F;			// SPI clock at 3.46MHz
+	SpibRegs.SPIBRR = 0x007F;			// SPI clock at 3.46MHz
 	SpibRegs.SPICCR.all = 0x0087; // Relinquish SPI from Reset, Loopback Disabled
 	SpibRegs.SPIPRI.bit.FREE = 1; 		// Set so breakpoints don't disturb TX
 

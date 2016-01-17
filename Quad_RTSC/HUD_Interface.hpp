@@ -19,7 +19,7 @@ public:
 	~HUD_Interface();
 
 	void parseInputData(float *motionCommands);
-	void build_packet(unsigned int *data1, float *data2, unsigned int length, unsigned int type);
+	void build_packet(FrameBuffer *XB_txBuffer, Uint16 *sensor_data, Uint8 length);
 
 public:
 	FrameBuffer m_XB_txBuf;

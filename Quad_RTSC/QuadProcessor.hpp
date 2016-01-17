@@ -19,7 +19,7 @@ public:
 	~Quad_Processor();
 
 	// These need to be re-written to return arrays.
-	void Process_Data(Datagram data);
+	void Process_Data(Datagram data, float* motionCmds);
 	float PID2(float desired, float current_pos, float* last_pos, float* error_sum, int type);
 	float RatePI(float desired, float current_pos, float* last_pos, float* error_sum, int type);
 	float AttitudePI(float desired, float current_pos, float* last_pos, float* error_sum, int type);

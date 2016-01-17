@@ -26,9 +26,9 @@ Quad_Processor::~Quad_Processor() {
 	// TODO Auto-generated destructor stub
 }
 
-void Quad_Processor::Process_Data(Datagram data) {
+void Quad_Processor::Process_Data(Datagram data, float* motionCmds) {
 	// MotionCmds will be coming from user input.
-	float motionCmds[4] = {0, 0, 0, 0};
+//	float motionCmds[4] = {0, 0, 0, 0};
 	m_dataGram = data;
 	CompFilter();
 	CollectData(motionCmds);
