@@ -23,11 +23,10 @@ HUD_Interface::~HUD_Interface() {
 // This should be called from a SWI
 void HUD_Interface::parseInputData(float *motionCommands) // Reads one unsigned int and then processes it.
 {
-	static int i = 0;
-	static unsigned int streamState = 0x0001;
-	static unsigned int stateCount = 0x0000;
-	static unsigned int data = 0x00000000;
-	static unsigned int indx = 0;
+	static Uint32 streamState = 0x0001;
+	static Uint32 stateCount = 0x0000;
+	static Uint32 data = 0x00000000;
+	static Uint32 indx = 0;
 	static float temp = 0;
 
 	Uint8 rdata = 0;
@@ -46,8 +45,6 @@ void HUD_Interface::parseInputData(float *motionCommands) // Reads one unsigned 
 
 	if (SpibRegs.SPIFFRX.bit.RXFFST != 0) { // && !m_xb_Device->m_XB_txBuffer->empty) {
 		 rdata = SpibRegs.SPIRXBUF;
-
-//		rdata = m_xb_Device->readByteSPI();
 
 		switch (streamState) {
 
